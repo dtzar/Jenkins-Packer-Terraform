@@ -3,5 +3,5 @@
 *.pwd
 *.pwi
 
-# packer vars files
-httpd_vars.json
+# env var configuration
+set_env_vars.sh

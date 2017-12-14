@@ -29,7 +29,8 @@
         {
             "type": "shell",
             "inline": [
-                "sudo yum install httpd -y"
+                "sudo yum install httpd -y",
+                "sudo systemctl enable httpd"
             ]
         },
         {

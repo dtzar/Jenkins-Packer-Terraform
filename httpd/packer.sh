@@ -42,3 +42,6 @@ else
     echo $(date) " - invalid Packer template (see above for issues). Exiting..."
     exit 1
 fi
+
+echo $(date) " - building the image"
+$PACKER_BIN build ./httpd.json

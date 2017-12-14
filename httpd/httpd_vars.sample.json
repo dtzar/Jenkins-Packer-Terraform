@@ -1,0 +1,8 @@
+{
+    "azure_client_id": "...",
+    "azure_client_secret": "...",
+    "azure_subscription_id": "...",
+    "image_name": "...",
+    "image_resource_group_name": "...",
+    "build_resource_group_name": "..."
+}

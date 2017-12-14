@@ -1,0 +1,7 @@
+# packer generated files
+*.hwm
+*.pwd
+*.pwi
+
+# packer vars files
+httpd_vars.json

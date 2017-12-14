@@ -1,11 +1,11 @@
 {
     "variables": {
-        "azure_client_id": "",
-        "azure_client_secret": "",
-        "azure_subscription_id": "",
-        "image_name": "",
-        "image_resource_group_name": "",
-        "build_resource_group_name": ""
+        "azure_client_id": "{{ env `AZURE_CLIENT_ID` }}",
+        "azure_client_secret": "{{ env `AZURE_CLIENT_SECRET` }}",
+        "azure_subscription_id": "{{ env `AZURE_SUBSCRIPTION_ID` }}",
+        "image_name": "{{ env `IMAGE_NAME` }}",
+        "image_resource_group_name": "{{ env `IMAGE_RESOURCE_GROUP_NAME` }}",
+        "build_resource_group_name": "{{ env `BUILD_RESOURCE_GROUP_NAME` }}"
     },
 
     "builders": [{

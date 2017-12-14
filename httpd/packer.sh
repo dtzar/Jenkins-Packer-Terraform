@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=httpd-rg
+RESOURCE_GROUP_NAME=$IMAGE_RESOURCE_GROUP_NAME
 REGION=eastus
 
 # on rpm-based machines there is already a packer bin
@@ -35,7 +35,7 @@ echo $(date) " - ensure resource group exists, create if it does not"
 create_resource_group $RESOURCE_GROUP_NAME $REGION
 
 echo $(date) " - validating Packer template"
-$PACKER_BIN validate -var-file ./httpd_vars.json ./httpd.json
+$PACKER_BIN validate ./httpd.json
 if [[ $? -eq 0 ]]; then
     echo $(date) " - Packer template is valid, continuing"
 else

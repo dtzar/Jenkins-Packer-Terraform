@@ -5,3 +5,7 @@
 
 # env var configuration
 set_env_vars.sh
+
+# terraform remote state config
+beconf.tfvars
+.terraform

@@ -23,6 +23,7 @@ podTemplate(
                 stage('Build Packer Image') {
                     echo "Building $IMAGE_NAME_PREFIX${env.BUILD_ID}"
                     sh """
+                    echo testing in the shell script
                     export IMAGE_NAME=$IMAGE_NAME_PREFIX${env.BUILD_ID}
                     packer build ./httpd/httpd.json
                     """

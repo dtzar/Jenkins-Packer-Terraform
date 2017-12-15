@@ -39,6 +39,7 @@ module "computegroup" {
   source = "Azure/computegroup/azurerm"
   resource_group_name = "${var.rg_name}"
   location = "eastus"
+  cmd_extension = "echo hi"
   load_balancer_backend_address_pool_ids = "${module.loadbalancer.azurerm_lb_backend_address_pool_id}"
   vnet_subnet_id = "${module.network.vnet_subnets[0]}"
   lb_port = {

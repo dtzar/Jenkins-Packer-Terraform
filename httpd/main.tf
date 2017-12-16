@@ -11,24 +11,24 @@ variable "client_secret" {}
 variable "tenant_id" {}
 
 variable "rg_name" {
-  default = "apache2"
+  default = "apache"
 }
 
 resource "azurerm_resource_group" "testrg" {
   name     = "${var.rg_name}"
-  location = "eastus"
+  location = "${var.location}"
 }
 
 module "network" {
   source = "Azure/network/azurerm"
   resource_group_name = "${var.rg_name}"
-  location = "eastus"
+  location = "${var.location}"
 }
 
 module "loadbalancer" {
   source = "Azure/loadbalancer/azurerm"
   resource_group_name = "${var.rg_name}"
-  location = "eastus"
+  location = "${var.location}"
   prefix = "tflbtest"
   lb_port = {
     http = [ "80", "Tcp", "80" ]
@@ -38,16 +38,17 @@ module "loadbalancer" {
 module "computegroup" {
   source = "Azure/computegroup/azurerm"
   resource_group_name = "${var.rg_name}"
-  location = "eastus"
+  location = "${var.location}"
   cmd_extension = "echo hi"
+  vm_os_id = "${var.vm_os_id}"
   load_balancer_backend_address_pool_ids = "${module.loadbalancer.azurerm_lb_backend_address_pool_id}"
   vnet_subnet_id = "${module.network.vnet_subnets[0]}"
   lb_port = {
     http = [ "80", "Tcp", "80" ]
     https = [ "443", "Tcp", "443" ]
   }
-  vm_size = "Standard_A0"
-  vm_os_publisher = "OpenLogic"
-  vm_os_offer = "CentOS"
-  vm_os_sku = "7.4"
+  vm_size = "Standard_DS2_v2"
+  # vm_os_publisher = "Open"
+  # vm_os_offer = "CentOS"
+  # vm_os_sku = "7.4"
 }

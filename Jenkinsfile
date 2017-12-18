@@ -21,7 +21,7 @@ podTemplate(
     ],
     volumes: [
         secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars'),
-        secretVolume(secretName: 'sshkey', mountPath: '/home/jenkins/.ssh')
+        secretVolume(secretName: 'sshkey', mountPath: '/etc/ssh')
         ]
     ) {
 

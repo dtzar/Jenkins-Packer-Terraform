@@ -2,7 +2,13 @@ podTemplate(
     label: 'hashicorp',
     containers: [
         containerTemplate(name: 'packer', image: 'hashicorp/packer:1.1.3', ttyEnabled: true, command: 'cat'),
-        containerTemplate(name: 'terraform', image: 'hashicorp/terraform:0.11.1', ttyEnabled: true, command: 'cat')
+        containerTemplate(
+          name: 'terraform',
+          image: 'hashicorp/terraform:0.11.1',
+          ttyEnabled: true,
+          command: 'cat',
+          volumes: [secretVolume(secretName: 'tfbackend', mountPath: '/etc/beconf.tfvars')]
+        )
     ],
     envVars: [
         envVar(key: 'IMAGE_RESOURCE_GROUP_NAME', value: 'apache'),
@@ -40,7 +46,7 @@ podTemplate(
                 stage('Deploy Packer Image with Terraform') {
                     sh """
                     cd httpd
-                    terraform init
+                    terraform init -backend-config=/etc/beconf.tfvars
                     terraform apply -var 'location=eastus' -var 'packer_image=$IMAGE_NAME_PREFIX${env.BUILD_ID}' -auto-approve
                     """
                 }

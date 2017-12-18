@@ -6,8 +6,7 @@ podTemplate(
           name: 'terraform',
           image: 'hashicorp/terraform:0.11.1',
           ttyEnabled: true,
-          command: 'cat',
-          volumes: [secretVolume(secretName: 'tfbackend', mountPath: '/etc/beconf.tfvars')]
+          command: 'cat'
         )
     ],
     envVars: [
@@ -19,7 +18,9 @@ podTemplate(
         secretEnvVar(key: 'ARM_STORAGE_ACCOUNT', secretName: 'azuresecrets', secretKey: 'ARM_STORAGE_ACCOUNT'),
         secretEnvVar(key: 'ARM_SUBSCRIPTION_ID', secretName: 'azuresecrets', secretKey: 'ARM_SUBSCRIPTION_ID'),
         secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID')
-    ]
+    ],
+    volumes: [
+        secretVolume(secretName: 'tfbackend', mountPath: '/etc/beconf.tfvars')]
     ) {
 
     node('hashicorp') {

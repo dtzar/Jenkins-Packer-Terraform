@@ -12,7 +12,11 @@ podTemplate(
         secretEnvVar(key: 'ARM_CLIENT_SECRET', secretName: 'azuresecrets', secretKey: 'ARM_CLIENT_SECRET'),
         secretEnvVar(key: 'ARM_STORAGE_ACCOUNT', secretName: 'azuresecrets', secretKey: 'ARM_STORAGE_ACCOUNT'),
         secretEnvVar(key: 'ARM_SUBSCRIPTION_ID', secretName: 'azuresecrets', secretKey: 'ARM_SUBSCRIPTION_ID'),
-        secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID')
+        secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID'),
+        secretEnvVar(key: 'TF_STATE_STORAGE_ACCOUNT', secretName: 'azuresecrets', secretKey: 'TF_STATE_STORAGE_ACCOUNT'),
+        secretEnvVar(key: 'TF_STATE_CONTAINER_NAME', secretName: 'azuresecrets', secretKey: 'TF_STATE_CONTAINER_NAME'),
+        secretEnvVar(key: 'TF_STATE_ACCESS_KEY', secretName: 'azuresecrets', secretKey: 'TF_STATE_ACCESS_KEY'),
+        secretEnvVar(key: 'TF_STATE_KEY', secretName: 'azuresecrets', secretKey: 'TF_STATE_KEY')
     ]
     ) {
 

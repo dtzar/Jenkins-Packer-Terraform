@@ -21,23 +21,23 @@ podTemplate(
     ],
     volumes: [
         secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars'),
-        secretVolume(secretName: 'sshkey', mountPath: '/etc/ssh')
+        secretVolume(secretName: 'sshkey', mountPath: '/home/jenkins/.ssh')
         ]
     ) {
 
     node('hashicorp') {
-        // stage('Packer CI') {
-        //     git 'https://github.com/dtzar/JenkinsPipeTest.git'
-        //     container('packer') {
-        //         stage('Build Packer Image') {
-        //             echo "Building $IMAGE_NAME_PREFIX${env.BUILD_ID}"
-        //             sh """
-        //             export IMAGE_NAME=$IMAGE_NAME_PREFIX${env.BUILD_ID}
-        //             packer build ./httpd/httpd.json
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Packer CI') {
+            git 'https://github.com/dtzar/JenkinsPipeTest.git'
+            container('packer') {
+                stage('Build Packer Image') {
+                    echo "Building $IMAGE_NAME_PREFIX${env.BUILD_ID}"
+                    sh """
+                    export IMAGE_NAME=$IMAGE_NAME_PREFIX${env.BUILD_ID}
+                    packer build ./httpd/httpd.json
+                    """
+                }
+            }
+        }
 
         stage('Terraform CD') {
             git url: 'https://github.com/dtzar/JenkinsPipeTest.git'
@@ -46,8 +46,7 @@ podTemplate(
                     sh """
                     cd httpd
                     terraform init -backend-config=/etc/tfvars/beconf.tfvars
-                    sleep 5m
-                    terraform apply -var 'location=eastus' -var 'packer_image=apachecustom24' -auto-approve
+                    terraform apply -var 'location=eastus' -var 'packer_image=$IMAGE_NAME_PREFIX${env.BUILD_ID}' -auto-approve
                     """
                 }
             }

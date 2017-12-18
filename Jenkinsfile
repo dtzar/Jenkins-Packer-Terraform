@@ -1,5 +1,5 @@
 podTemplate(
-    label: 'hashicorp', 
+    label: 'hashicorp',
     containers: [
         containerTemplate(name: 'packer', image: 'hashicorp/packer:1.1.3', ttyEnabled: true, command: 'cat'),
         containerTemplate(name: 'terraform', image: 'hashicorp/terraform:0.11.1', ttyEnabled: true, command: 'cat')

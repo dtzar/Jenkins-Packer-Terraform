@@ -35,7 +35,8 @@ podTemplate(
             container('terraform') {
                 stage('Deploy Packer Image with Terraform') {
                     sh """
-                    terraform -v
+                    cd httpd
+                    terraform apply -var 'packer_image=$IMAGE_NAME_PREFIX${env.BUILD_ID}' -auto-approve
                     """
                 }
             }

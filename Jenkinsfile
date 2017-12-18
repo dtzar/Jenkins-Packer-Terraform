@@ -20,7 +20,9 @@ podTemplate(
         secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID')
     ],
     volumes: [
-        secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars')]
+        secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars'),
+        secretVolume(secretName: 'sshkey', mountPath: '/home/jenkins/.ssh')
+        ]
     ) {
 
     node('hashicorp') {

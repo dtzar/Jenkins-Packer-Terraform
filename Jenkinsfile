@@ -42,6 +42,7 @@ podTemplate(
                 stage('Deploy Packer Image with Terraform') {
                     sh """
                     cd httpd
+                    sleep 5m
                     terraform init -backend-config=/etc/beconf.tfvars
                     terraform apply -var 'location=eastus' -var 'packer_image=apachecustom24' -auto-approve
                     """

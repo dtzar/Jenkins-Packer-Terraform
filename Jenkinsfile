@@ -46,6 +46,7 @@ podTemplate(
                     sh """
                     cd httpd
                     terraform init -backend-config=/etc/tfvars/beconf.tfvars
+                    sleep 5m
                     terraform apply -var 'location=eastus' -var 'packer_image=apachecustom24' -auto-approve
                     """
                 }

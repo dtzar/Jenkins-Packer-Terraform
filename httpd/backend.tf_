@@ -1,8 +1,0 @@
-terraform {
-  backend "azurerm" {
-    storage_account_name = "staplespacker"
-    container_name       = "tfstate"
-    key                  = "test.terraform.tfstate"
-    access_key           = "x9MthMNgAScmsa/hxbpZdSRrusgHfFWpu3BvpexvDpHbJByVj9D+wvGsXQY3YTzeCS3I9r452p5svPfFLubC2w=="
-  }
-}

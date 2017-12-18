@@ -20,7 +20,7 @@ podTemplate(
         secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID')
     ],
     volumes: [
-        secretVolume(secretName: 'tfbackend', mountPath: '/etc/beconf.tfvars')]
+        secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars')]
     ) {
 
     node('hashicorp') {
@@ -43,8 +43,7 @@ podTemplate(
                 stage('Deploy Packer Image with Terraform') {
                     sh """
                     cd httpd
-                    sleep 5m
-                    terraform init -backend-config=/etc/beconf.tfvars
+                    terraform init -backend-config=/etc/tfvars/beconf.tfvars
                     terraform apply -var 'location=eastus' -var 'packer_image=apachecustom24' -auto-approve
                     """
                 }

@@ -39,7 +39,7 @@ module "computegroup" {
   source = "Azure/computegroup/azurerm"
   resource_group_name = "${var.rg_name}"
   location = "${var.location}"
-  cmd_extension = "echo hi"
+  cmd_extension = "sed -i s/test/success/g ~/testfile"
   vm_os_id = "${var.vm_os_id}"
   load_balancer_backend_address_pool_ids = "${module.loadbalancer.azurerm_lb_backend_address_pool_id}"
   vnet_subnet_id = "${module.network.vnet_subnets[0]}"

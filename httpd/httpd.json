@@ -38,7 +38,7 @@
         {
             "type": "shell",
             "inline": [
-                "echo test > ~/testfile"
+                "echo test | sudo dd of=/etc/testfile &> /dev/null"
             ]
         },
         {

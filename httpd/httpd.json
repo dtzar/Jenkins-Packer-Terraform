@@ -31,8 +31,9 @@
         {
             "type": "shell",
             "inline": [
-                "sudo yum install httpd -y",
-                "sudo systemctl enable httpd"
+                "sudo yum install httpd samba-client samba-common cifs-utils -y",
+                "sudo systemctl enable httpd",
+                "sudo mkdir azfilestore"
             ]
         },
         {

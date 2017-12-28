@@ -17,7 +17,10 @@ podTemplate(
         secretEnvVar(key: 'ARM_CLIENT_SECRET', secretName: 'azuresecrets', secretKey: 'ARM_CLIENT_SECRET'),
         secretEnvVar(key: 'ARM_STORAGE_ACCOUNT', secretName: 'azuresecrets', secretKey: 'ARM_STORAGE_ACCOUNT'),
         secretEnvVar(key: 'ARM_SUBSCRIPTION_ID', secretName: 'azuresecrets', secretKey: 'ARM_SUBSCRIPTION_ID'),
-        secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID')
+        secretEnvVar(key: 'ARM_TENANT_ID', secretName: 'azuresecrets', secretKey: 'ARM_TENANT_ID'),
+        secretEnvVar(key: 'STORAGE_URL', secretName: 'azuresecrets', secretKey: 'STORAGE_URL'),
+        secretEnvVar(key: 'STORAGE_USER', secretName: 'azuresecrets', secretKey: 'STORAGE_USER'),
+        secretEnvVar(key: 'STORAGE_PASSWORD', secretName: 'azuresecrets', secretKey: 'STORAGE_PASSWORD')
     ],
     volumes: [
         secretVolume(secretName: 'tfbackend', mountPath: '/etc/tfvars'),
@@ -46,7 +49,7 @@ podTemplate(
                     sh """
                     cd httpd
                     terraform init -backend-config=/etc/tfvars/beconf.tfvars
-                    terraform apply -var 'location=eastus' -var 'packer_image=$IMAGE_NAME_PREFIX${env.BUILD_ID}' -auto-approve
+                    terraform apply -var 'location=eastus' -var 'packer_image=$IMAGE_NAME_PREFIX${env.BUILD_ID}' -var 'storage_url=$STORAGE_URL' -var 'storage_user=$STORAGE_USER' -var 'storage_password=$STORAGE_PASSWORD' -auto-approve
                     """
                 }
             }

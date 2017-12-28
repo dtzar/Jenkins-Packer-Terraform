@@ -22,6 +22,18 @@ variable "location"{
   default = "eastus"
 }
 
+variable "storage_url"{
+  default = ""
+}
+
+variable "storage_password"{
+  default = ""
+}
+
+variable "storage_user" {
+  default = ""
+}
+
 resource "azurerm_resource_group" "testrg" {
   name     = "${var.rg_name}"
   location = "${var.location}"
@@ -52,7 +64,11 @@ module "computegroup" {
   source = "Azure/computegroup/azurerm"
   resource_group_name = "${var.rg_name}"
   location = "${var.location}"
-  cmd_extension = "sudo sed -i s/test/success/g /etc/testfile"
+  cmd_extension = 
+<<EOF
+sudo sed -i s/test/success/g /etc/testfile
+sudo sed -i '$ a\${var.storage_url} /azfilestore cifs vers=3.0,username=${var.storage_user},password=${var.storage_password},dir_mode=0777,file_mode=0777,serverino' /etc/fstab
+EOF
   vm_os_id = "${data.azurerm_image.search.id}"
   # ssh_key = "/etc/ssh/id_rsa.pub"
   load_balancer_backend_address_pool_ids = "${module.loadbalancer.azurerm_lb_backend_address_pool_id}"

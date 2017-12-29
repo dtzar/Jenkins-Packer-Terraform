@@ -66,9 +66,7 @@ module "computegroup" {
   location = "${var.location}"
   cmd_extension = 
 <<EOF
-sudo sed -i s/test/success/g /etc/testfile
-sudo sed -i '$ a\${var.storage_url} /azfilestore cifs vers=3.0,username=${var.storage_user},password=${var.storage_password},dir_mode=0777,file_mode=0777,serverino' /etc/fstab
-EOF
+sudo sed -i s/test/success/g /etc/testfile && sudo sed -i '$ a\\${var.storage_url} /azfilestore cifs vers=3.0,username=${var.storage_user},password=${var.storage_password},dir_mode=0777,file_mode=0777,serverino' /etc/fstab /nEOF
   vm_os_id = "${data.azurerm_image.search.id}"
   # ssh_key = "/etc/ssh/id_rsa.pub"
   load_balancer_backend_address_pool_ids = "${module.loadbalancer.azurerm_lb_backend_address_pool_id}"
@@ -76,6 +74,7 @@ EOF
   lb_port = {
     http = [ "80", "Tcp", "80" ]
     https = [ "443", "Tcp", "443" ]
+    ssh = [ "22", "Tcp", "22"]
   }
   vm_size = "Standard_DS2_v2"
   # vm_os_publisher = "Open"
